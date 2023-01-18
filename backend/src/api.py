@@ -6,8 +6,13 @@ from flask_cors import CORS
 
 from .database.models import db_drop_and_create_all, setup_db, Drink
 from .auth.auth import AuthError, requires_auth
+import ssl
+
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 app = Flask(__name__)
+
 
 def create_app():
     
@@ -16,9 +21,12 @@ def create_app():
        
     return app
 
+
 setup_db(app)
 CORS(app)
-  
+
+
+
 
 '''
 @TODO uncomment the following line to initialize the datbase
@@ -49,7 +57,8 @@ def after_request(response):
 
 @app.route('/drinks', methods= ['GET'])
 def get_drinks():
-    drinks = Drink.query.all()
+    alldrinks = Drink.query.all()
+    drinks = [drink.short() for drink in alldrinks]
     print(drinks)
     return jsonify({
         'success': True,
