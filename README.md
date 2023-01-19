@@ -1,35 +1,73 @@
-# Coffee Shop Full Stack
+# DOCUMENTATION
+# COFFEE APP
+This project is an small app to test a third party authentication service like Auth0. It simulates an app for a coffee bar where manager and baristas has different permissions to take actions in the app. The code is written under the Pep-8 principles.
 
-## Full Stack Nano - IAM Final Project
+# GETTING STARTED
+The stack of the application is Flask for the backend and Ionic for the frontend. The database is SQLlite. The project was developed internally so the url is refering a localhost owned by Udacity.
 
-Udacity has decided to open a new digitally enabled cafe for students to order drinks, socialize, and study hard. But they need help setting up their menu experience.
+# API REFERENCE
+# GET '/drinks'
+Fetches a list of all the drinks that are recored in the database. Request arguments: None. 
 
-You have been called on to demonstrate your newly learned skills to create a full stack drink menu application. The application must:
 
-1. Display graphics representing the ratios of ingredients in each drink.
-2. Allow public users to view drink names and graphics.
-3. Allow the shop baristas to see the recipe information.
-4. Allow the shop managers to create new drinks and edit existing drinks.
+ There are three responses, first a value pair list of categories with the category id and the category name. The same for current category. The second is a dictionary with the questions in a value pair with the question, answer, category, difficulty and id.
 
-## Tasks
+"categories": { "1": "Science", "2": "Art", "3": "Geography", "4": "History", "5": "Entertainment", "6": "Sports" }, "current_category": { "1": "Science", "2": "Art", "3": "Geography", "4": "History", "5": "Entertainment", "6": "Sports" }, "questions": [ { "answer": "Tom Cruise", "category": 5, "difficulty": 4, "id": 4, "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?" }, { "answer": "Maya Angelou", "category": 4, "difficulty": 2, "id": 5, "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?" },
 
-There are `@TODO` comments throughout the project. We recommend tackling the sections in order. Start by reading the READMEs in:
+GET '/categories'
+Fetches a dictionary with the categories in a value - pair schema. Request arguments: None. This categories display questions by category when selected.
 
-1. [`./backend/`](./backend/README.md)
-2. [`./frontend/`](./frontend/README.md)
+{ "categories": { "1": "Science", "2": "Art", "3": "Geography", "4": "History", "5": "Entertainment", "6": "Sports" },
 
-## About the Stack
+DELETE '/questions/int:question_id'
+Delete the question in database Request arguments: id of the questions (integer value) When clicked the trash it sends a delete to db. It response the id of the deleted question and when done it a true success.
 
-We started the full stack application for you. It is designed with some key functional areas:
+{ "deleted": 6, "success": true }
 
-### Backend
+POST '/add'
+The form send the request to db. It is not allowed to send empty fields. Request arguments: None. The question is added at the end of the whole list.
 
-The `./backend` directory contains a partially completed Flask server with a pre-written SQLAlchemy module to simplify your data needs. You will need to complete the required endpoints, configure, and integrate Auth0 for authentication.
+{ question: What's the name of spanisk King? answer: Felipe VI difficulty: 3 category: 3 }
 
-[View the README.md within ./backend for more details.](./backend/README.md)
+POST '/questions'
+Using the search field, this action search for terms in question, it allows capitals or not. Request arguments: None It returns a list of questions where the search tearm appears. The dictionary contains the total number of questions returned. It response too the current category of the questions searched
 
-### Frontend
+"questions": [ { "answer": "Brazil", "category": 6, "difficulty": 3, "question": "Which is the only team to play in every soccer World Cup tournament?" } ], "success": true, "totalQuestions": 1 }
 
-The `./frontend` directory contains a complete Ionic frontend to consume the data from the Flask server. You will only need to update the environment variables found within (./frontend/src/environment/environment.ts) to reflect the Auth0 configuration details set up for the backend app.
+GET '/categories/int:category_id/questions'
+It allows to filter the list of questions by category selected. Request arguments: category id (integer) The response is a list of dictionaries with each question.
 
-[View the README.md within ./frontend for more details.](./frontend/README.md)
+{ "currentCategory": null, "questions": [ { "answer": "Lake Victoria", "category": 3, "difficulty": 2, "question": "What is the largest lake in Africa?" }, { "answer": "The Palace of Versailles", "category": 3, "difficulty": 3, "question": "In which royal palace would you find the Hall of Mirrors?" }, { "answer": "Agra", "category": 3, "difficulty": 2, "question": "The Taj Mahal is located in which Indian city?" } ], "success": true, "totalQuestions": 3
+
+POST '/play'
+Allow to select a cateogry and get random questions of this category Request arguments: None When selected category it filters all the questions by this category. It shows a random question (current_question) for the list and you have to fit the answe. Displays a message of error when fail and a success when the answer is correct. Clicking next question it show the next one (previousQuestions) in the list. If none, it stays.
+
+{ "currentQuestion": { "answer": "Brazil", "category": 6, "difficulty": 3, "id": 10, "question": "Which is the only team to play in every soccer World Cup tournament?" }, "previousQuestions": [ { "answer": "Brazil", "category": 6, "difficulty": 3, "id": 10, "question": "Which is the only team to play in every soccer World Cup tournament?" }, { "answer": "Uruguay", "category": 6, "difficulty": 4, "id": 11, "question": "Which country won the first ever soccer World Cup in 1930?" } ], "quizCategory": { "id": "6", "type": "Sports" }, "success": true }
+
+DEPLOYEMENT
+Frontend
+Install Node and NPM This project requires on Nodejs and Node Package Manager (NPM). If you haven't already installed Node on your local machine, see the instructions here: Before continuing, you must download and install Node (the download includes NPM) from Nodejs.com. Install project dependencies After confirming you have NPM installed, navigate to the frontend directory of the project and run.
+
+npm install npm start
+
+The frontend folders got public folder with images and media. And src folder where you can find the components and stylesheet.
+
+Backend
+Need to install dependencies. Check for updated packages.
+
+pip install -r requirements.txt
+
+Primary dependencies: Flask, SQLAlchemy, Flask-CORS.
+
+To start the server, positioned in backend folder:
+
+export FLASK_APP=flaskr export FLASK_ENV=development flask run
+
+Testing: You can test the app an any added route executing in backend folder:
+python3 test_flaskr.py
+
+AUTHORS
+Juanan Jiménez
+
+ACKNOWLEDGEMENT
+All the work wasn't possible without the help of Udacity mentors.
