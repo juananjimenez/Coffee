@@ -13,17 +13,16 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 app = Flask(__name__)
 
-
 def create_app():
     
     with app.app_context():
         db_drop_and_create_all()
-       
+               
     return app
-
 
 setup_db(app)
 CORS(app)
+
 
 
 
@@ -116,6 +115,7 @@ def create_drink(payload):
             
 
         new_drink.insert()
+        
 
         return jsonify({
             'success': True,
