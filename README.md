@@ -7,44 +7,30 @@ The stack of the application is Flask for the backend and Ionic for the frontend
 
 # API REFERENCE
 # GET '/drinks'
-Fetches a list of all the drinks that are recored in the database. Request arguments: None. 
+Fetches a list of all the drinks that are recored in the database. Request arguments: None. The description is short.
+
+"drinks": [ { "title": "Water3"}]
+
+# POST '/drinks'
+Fetches the detail of a drink. Request arguments: None. This route display drinks with its recipe.
+
+"drinks": [ { "title": "Water3", "recipe": {"name": "Water", "color": "blue", "parts": 1}}],
+
+# GET '/drinks-detail'
+Fetches the detail of a drink. Request arguments: None. This route display drinks with its recipe.
+
+"drinks": [ { "title": "Water3", "recipe": {"name": "Water", "color": "blue", "parts": 1}}]
+
+# DELETE '/drinks/int:question_id'
+Delete the drink in database Request arguments: id of the drink (integer value) When clicked it sends a delete to db. It response the id of the deleted drink and when done it a true success.
+
+{ "deleted": 1, "success": true }
+
+# PATCH '/drinks/int:question_id'
+Upload the drink in database Request arguments: id of the drink (integer value) When clicked it sends a update te to db. It response the id of the updated drink and when done it a true success.
 
 
- There are three responses, first a value pair list of categories with the category id and the category name. The same for current category. The second is a dictionary with the questions in a value pair with the question, answer, category, difficulty and id.
-
-"categories": { "1": "Science", "2": "Art", "3": "Geography", "4": "History", "5": "Entertainment", "6": "Sports" }, "current_category": { "1": "Science", "2": "Art", "3": "Geography", "4": "History", "5": "Entertainment", "6": "Sports" }, "questions": [ { "answer": "Tom Cruise", "category": 5, "difficulty": 4, "id": 4, "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?" }, { "answer": "Maya Angelou", "category": 4, "difficulty": 2, "id": 5, "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?" },
-
-GET '/categories'
-Fetches a dictionary with the categories in a value - pair schema. Request arguments: None. This categories display questions by category when selected.
-
-{ "categories": { "1": "Science", "2": "Art", "3": "Geography", "4": "History", "5": "Entertainment", "6": "Sports" },
-
-DELETE '/questions/int:question_id'
-Delete the question in database Request arguments: id of the questions (integer value) When clicked the trash it sends a delete to db. It response the id of the deleted question and when done it a true success.
-
-{ "deleted": 6, "success": true }
-
-POST '/add'
-The form send the request to db. It is not allowed to send empty fields. Request arguments: None. The question is added at the end of the whole list.
-
-{ question: What's the name of spanisk King? answer: Felipe VI difficulty: 3 category: 3 }
-
-POST '/questions'
-Using the search field, this action search for terms in question, it allows capitals or not. Request arguments: None It returns a list of questions where the search tearm appears. The dictionary contains the total number of questions returned. It response too the current category of the questions searched
-
-"questions": [ { "answer": "Brazil", "category": 6, "difficulty": 3, "question": "Which is the only team to play in every soccer World Cup tournament?" } ], "success": true, "totalQuestions": 1 }
-
-GET '/categories/int:category_id/questions'
-It allows to filter the list of questions by category selected. Request arguments: category id (integer) The response is a list of dictionaries with each question.
-
-{ "currentCategory": null, "questions": [ { "answer": "Lake Victoria", "category": 3, "difficulty": 2, "question": "What is the largest lake in Africa?" }, { "answer": "The Palace of Versailles", "category": 3, "difficulty": 3, "question": "In which royal palace would you find the Hall of Mirrors?" }, { "answer": "Agra", "category": 3, "difficulty": 2, "question": "The Taj Mahal is located in which Indian city?" } ], "success": true, "totalQuestions": 3
-
-POST '/play'
-Allow to select a cateogry and get random questions of this category Request arguments: None When selected category it filters all the questions by this category. It shows a random question (current_question) for the list and you have to fit the answe. Displays a message of error when fail and a success when the answer is correct. Clicking next question it show the next one (previousQuestions) in the list. If none, it stays.
-
-{ "currentQuestion": { "answer": "Brazil", "category": 6, "difficulty": 3, "id": 10, "question": "Which is the only team to play in every soccer World Cup tournament?" }, "previousQuestions": [ { "answer": "Brazil", "category": 6, "difficulty": 3, "id": 10, "question": "Which is the only team to play in every soccer World Cup tournament?" }, { "answer": "Uruguay", "category": 6, "difficulty": 4, "id": 11, "question": "Which country won the first ever soccer World Cup in 1930?" } ], "quizCategory": { "id": "6", "type": "Sports" }, "success": true }
-
-DEPLOYEMENT
+# DEPLOYEMENT
 Frontend
 Install Node and NPM This project requires on Nodejs and Node Package Manager (NPM). If you haven't already installed Node on your local machine, see the instructions here: Before continuing, you must download and install Node (the download includes NPM) from Nodejs.com. Install project dependencies After confirming you have NPM installed, navigate to the frontend directory of the project and run.
 
@@ -59,12 +45,14 @@ pip install -r requirements.txt
 
 Primary dependencies: Flask, SQLAlchemy, Flask-CORS.
 
-To start the server, positioned in backend folder:
+To start the server, positioned in backend/src folder:
 
-export FLASK_APP=flaskr export FLASK_ENV=development flask run
+export FLASK_APP=api.py 
+flask run --reload
 
-Testing: You can test the app an any added route executing in backend folder:
-python3 test_flaskr.py
+# TEST
+
+You can test in Postman with {} udacity-fsnd-udaspicelatte.postman_test_run.json
 
 AUTHORS
 Juanan Jiménez

@@ -119,6 +119,7 @@ def create_drink(payload):
 
         new_drink.insert()
         
+        
 
         return jsonify({
             'success': True,
