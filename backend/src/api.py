@@ -25,8 +25,6 @@ CORS(app)
 
 
 
-
-
 '''
 @TODO uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
@@ -56,13 +54,17 @@ def after_request(response):
 
 @app.route('/drinks', methods= ['GET'])
 def get_drinks():
-    alldrinks = Drink.query.all()
-    drinks = [drink.short() for drink in alldrinks]
-    print(drinks)
-    return jsonify({
-        'success': True,
-        'drinks': drinks,
-    })
+
+    try:
+        alldrinks = Drink.query.all()
+        drinks = [drink.short() for drink in alldrinks]
+        print(drinks)
+        return jsonify({
+            'success': True,
+            'drinks': drinks,
+        }), 200
+    except:
+        abort(422)
 
 
 '''
@@ -79,14 +81,15 @@ def get_drinks():
 def drink_detail(payload):
     
     if ('get:drinks-detail' in payload.permissions):
-        drink_query = Drink.query.all()
-        drinks = [drink.long() for drink in drink_query]
-        return jsonify({
-            'success': True,
-            'drinks': drinks,
-        })
-    else: 
-        abort(403)
+        try: 
+            drink_query = Drink.query.all()
+            drinks = [drink.long() for drink in drink_query]
+            return jsonify({
+                'success': True,
+                'drinks': drinks,
+            }), 200
+        except: 
+            abort(403)
 
 '''
 @TODO implement endpoint

@@ -1,0 +1,179 @@
+{
+	"id": "ac2a03c0-7b88-45c1-ae71-94f197784c16",
+	"name": "udacity-fsnd-udaspicelatte",
+	"timestamp": "2023-01-20T08:45:25.802Z",
+	"collection_id": "6362074-68486ede-49ce-4549-afe7-6a872290b775",
+	"folder_id": "6362074-751ecb2a-951f-4d69-ad90-52e398687a5a",
+	"environment_id": "0",
+	"totalPass": 3,
+	"totalFail": 3,
+	"results": [
+		{
+			"id": "970e9308-29a3-4059-876f-0713f2ca38a5",
+			"name": "/drinks",
+			"url": "localhost:5000/drinks",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"value contains drinks array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"value contains drinks array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"value contains drinks array": true
+				}
+			]
+		},
+		{
+			"id": "a54ccb28-786f-4d6a-ac32-3039ef20704a",
+			"name": "/drinks-detail",
+			"url": "localhost:5000/drinks-detail",
+			"time": 255,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				255
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "20d7af0e-74ff-4deb-b18d-4ba69324a823",
+			"name": "/drinks",
+			"url": "localhost:5000/drinks",
+			"time": 48,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 403 since credentials are valid, but permission is not present": false
+			},
+			"testPassFailCounts": {
+				"Status code is 403 since credentials are valid, but permission is not present": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Status code is 403 since credentials are valid, but permission is not present": false
+				}
+			]
+		},
+		{
+			"id": "f4b9cdb4-6532-47ae-ba8b-3e887f8f8605",
+			"name": "/drinks/1",
+			"url": "localhost:5000/drinks/1",
+			"time": 50,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 403 since credentials are valid, but permission is not present": false
+			},
+			"testPassFailCounts": {
+				"Status code is 403 since credentials are valid, but permission is not present": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				50
+			],
+			"allTests": [
+				{
+					"Status code is 403 since credentials are valid, but permission is not present": false
+				}
+			]
+		},
+		{
+			"id": "0561d887-13ba-4f3e-afe2-8b1963a41673",
+			"name": "/drinks/1",
+			"url": "localhost:5000/drinks/1",
+			"time": 245,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 403 since credentials are valid, but permission is not present": false
+			},
+			"testPassFailCounts": {
+				"Status code is 403 since credentials are valid, but permission is not present": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				245
+			],
+			"allTests": [
+				{
+					"Status code is 403 since credentials are valid, but permission is not present": false
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 612,
+	"collection": {
+		"requests": [
+			{
+				"id": "970e9308-29a3-4059-876f-0713f2ca38a5",
+				"method": "GET"
+			},
+			{
+				"id": "a54ccb28-786f-4d6a-ac32-3039ef20704a",
+				"method": "GET"
+			},
+			{
+				"id": "20d7af0e-74ff-4deb-b18d-4ba69324a823",
+				"method": "POST"
+			},
+			{
+				"id": "f4b9cdb4-6532-47ae-ba8b-3e887f8f8605",
+				"method": "PATCH"
+			},
+			{
+				"id": "0561d887-13ba-4f3e-afe2-8b1963a41673",
+				"method": "DELETE"
+			}
+		]
+	}
+}
