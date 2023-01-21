@@ -6,23 +6,16 @@ from flask_cors import CORS
 
 from .database.models import db_drop_and_create_all, setup_db, Drink
 from .auth.auth import AuthError, requires_auth
+
 import ssl
-
-
 ssl._create_default_https_context = ssl._create_unverified_context
 
 app = Flask(__name__)
-
-def create_app():
-    
-    with app.app_context():
-        db_drop_and_create_all()
-               
-    return app
-
 setup_db(app)
 CORS(app)
 
+with app.app_context():
+    db_drop_and_create_all() 
 
 
 '''
@@ -57,11 +50,12 @@ def get_drinks():
 
     try:
         alldrinks = Drink.query.all()
+        print(alldrinks)
         drinks = [drink.short() for drink in alldrinks]
         print(drinks)
         return jsonify({
             'success': True,
-            'drinks': drinks,
+            'drinks': [drinks]
         }), 200
     except:
         abort(422)
@@ -80,13 +74,12 @@ def get_drinks():
 @requires_auth('get:drinks-detail')
 def drink_detail(payload):
     
-    if ('get:drinks-detail' in payload.permissions):
         try: 
             drink_query = Drink.query.all()
             drinks = [drink.long() for drink in drink_query]
             return jsonify({
                 'success': True,
-                'drinks': drinks,
+                'drinks-detail': [drinks]
             }), 200
         except: 
             abort(403)
@@ -105,7 +98,6 @@ def drink_detail(payload):
 @requires_auth('post:drinks')
 def create_drink(payload):
     
-    if ('post:drinks' in payload.permissions):
         
         body = request.get_json()
 
@@ -123,11 +115,10 @@ def create_drink(payload):
 
         return jsonify({
             'success': True,
-            'drink': new_drink
+            'drinks': [new_drink.long()]
         
             })
-    else: 
-        abort(403)
+  
 
 '''
 @TODO implement endpoint
@@ -145,21 +136,17 @@ def create_drink(payload):
 @requires_auth('patch:drinks')
 def edit_drink(payload, drink_id):
     
-    if ('patch:drinks' in payload.permissions):
 
-        drink = Drink.query.filter(Drink.id == drink_id).one_or_none()
+        modify_drink = Drink.query.filter(Drink.id == drink_id).one_or_none()
 
-        if drink is None:
+        if modify_drink is None:
             abort(404)
         else:
-            drink.update()
+            modify_drink.update()
             return jsonify({
                 'success': True,
-                'deleted': drink
+                'drinks': [modify_drink.long()]
             })
-       
-    else: 
-        abort(403)
 
 
 '''
@@ -177,8 +164,7 @@ def edit_drink(payload, drink_id):
 @requires_auth('delete:drinks')
 def delete_drink(drink_id, payload):
 
-    if ('delete:drinks' in payload.permissions):
-    
+  
         drink = Drink.query.filter(Drink.id == drink_id).one_or_none()
 
         if drink is None:
@@ -187,12 +173,8 @@ def delete_drink(drink_id, payload):
             drink.delete()
             return jsonify({
                 'success': True,
-                'deleted': drink
+                'deleted': [drink_id]
             })
-    else:
-        abort(403)
-
-
 
 # Error Handling
 '''

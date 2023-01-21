@@ -11,6 +11,8 @@ database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filenam
 
 db = SQLAlchemy()
 
+
+
 '''
 setup_db(app)
     binds a flask application and a SQLAlchemy service
@@ -33,16 +35,25 @@ db_drop_and_create_all()
 
 
 def db_drop_and_create_all():
+
     db.drop_all()
+    
     db.create_all()
     # add one demo row which is helping in POSTMAN test
     drink = Drink(
         title='water',
         recipe='[{"name": "water", "color": "blue", "parts": 1}]'
     )
+    drink2 = Drink(
+        title='tea',
+        recipe='[{"name": "tea", "color": "green", "parts": 2}]'
+    )
 
 
     drink.insert()
+    drink2.insert()
+    
+
 # ROUTES
 
 '''
